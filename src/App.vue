@@ -15,13 +15,12 @@
       </MyButton>
       <div>
         <MySelect
-        
           class="select"
-          v-model="selectedSort"
-          @selectedOption="selectedOption"
+          v-model="selectedSortOption"
+          @updateSelectedSortOption="updateSelectedSortOption"
           v-bind:options="options">
         </MySelect>
-        <MyButton @click="clearSort"> clear</MyButton>
+        <MyButton @click="clearSortOptions"></MyButton>
       </div>
     </div>
     <MyDialog
@@ -36,15 +35,15 @@
     </Postlist>
     <div v-else>Loading...</div>
     <div class="page__wrapper">
-      <div 
-      @click="changePage(pageNumber)"
-      class="page" 
-      :class="{
-        'current_page': page === pageNumber
-      }"
-      v-for="pageNumber in totalPages" :key="pageNumber"> 
-      {{ pageNumber }}
-    </div>
+      <div
+        @click="changePage(pageNumber)"
+        class="page"
+        :class="{
+          'current_page': page === pageNumber
+        }"
+        v-for="pageNumber in totalPages" :key="pageNumber">
+        {{ pageNumber }}
+      </div>
     </div>
   </div>
 </template>
@@ -73,8 +72,9 @@ export default {
       posts: [],
       isVisible: false,
       isPostLoading: false,
-      selectedSort: '',
+
       searchQuery: '',
+      selectedSortOption: '',
       page: 1,
       limit: 10,
       totalPages: 0,
@@ -90,6 +90,15 @@ export default {
 
 
   methods: {
+    updateSelectedSortOption(value) {
+      this.selectedSortOption = value
+    },
+
+    clearSortOptions() {
+      this.selectedSortOption = ''
+    },
+
+
     createPost(post) {
       this.posts.push(post)
       this.isVisible = false
@@ -117,22 +126,10 @@ export default {
       }
     },
 
-    selectedOption(value) {
-      this.selectedSort = value
-    },
 
-    changePage(pageNumber) {
-      this.page =  pageNumber
-    },
 
-    clearSort() {
-     this.selectedSort = ''
-     
-    },
 
-   
 
-  
   },
 
   mounted() {
@@ -142,7 +139,7 @@ export default {
 
   computed: {
     sortedPosts() {
-      return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
+      return [...this.posts].sort((post1, post2) => post1[this.selectedSortOption]?.localeCompare(post2[this.selectedSortOption]))
     },
     sortedAndSearchedPosts() {
       return this.sortedPosts.filter((post) => post.title.toLowerCase().includes(this.searchQuery.toLocaleLowerCase()))
@@ -156,15 +153,15 @@ export default {
   //       })
   //     }
   // }
-    watch: {
-      page() {
-        this.fetchPosts()
-      },
-
- 
+  watch: {
+    page() {
+      this.fetchPosts()
+    },
 
 
-    }
+
+
+  }
 
 }
 
@@ -196,9 +193,9 @@ export default {
 }
 
 .page {
-   border: 1px solid teal;
-   padding: 10px;
-   margin: 5px;
+  border: 1px solid teal;
+  padding: 10px;
+  margin: 5px;
 }
 
 .page:hover {

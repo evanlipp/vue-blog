@@ -1,10 +1,8 @@
 <template>
-  
-      <select v-model="value" @change="changeOption($event.target.value)">
-        <option disabled value="">Sort posts:</option>
-        <option v-for="option in options" :key="option.value" v-bind:value="option.value" >{{ option.name }} </option>
-      </select>
-
+  <select v-bind:value="value" @change="changedSelectedSortOption">
+    <option disabled value="">Sort posts:</option>
+    <option v-for="option in options" :key="option.value" v-bind:value="option.value">{{ option.name }} </option>
+  </select>
 </template>
 
 
@@ -15,7 +13,7 @@ export default {
   name: 'MySelect',
 
   props: {
-
+    value: String,
     options: {
       type: Array,
       default: () => []
@@ -24,17 +22,16 @@ export default {
 
   data() {
     return {
-    value: '',
+
     }
   },
 
-  
+
 
   methods: {
-    changeOption(value) {
-      this.$emit('selectedOption', value)
-    },
-
+  changedSelectedSortOption(event) {
+      this.$emit('updateSelectedSortOption', event.target.value)
+    }
 
   }
 }
