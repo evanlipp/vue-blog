@@ -1,10 +1,11 @@
 <template>
-  <input class="input" :value="value" @input="updateValue($event.target.value)" :maxlength="charactersMaxCount">
+  <textarea class="textarea" :value="value" @input="updateValue($event.target.value)"
+    :maxlength="charactersMaxCount"></textarea>
 </template>
 
 <script>
 export default {
-  name: 'MyInput',
+  name: 'MyTextArea',
 
   props: {
     value: String,
@@ -20,10 +21,13 @@ export default {
 </script>
 
 <style lang="scss">
-.input {
+.textarea {
   width: 100%;
+  height: 140px;
   padding: 10px 15px;
   border: 1px solid $border-primary;
   border-radius: 10px;
+  resize: none;
+  font: inherit;
 }
 </style>

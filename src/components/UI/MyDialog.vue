@@ -1,6 +1,6 @@
 <template>
   <div class="dialog" v-if="visibility" @click="hideDialog">
-    <div @click.stop class="dialog__content" >
+    <div @click.stop class="dialog__content">
       <slot></slot>
     </div>
   </div>
@@ -10,9 +10,8 @@
 export default {
   name: 'MyDialog',
 
-
   props: {
-   visibility: {
+    visibility: {
       type: Boolean,
       default: false,
     }
@@ -23,11 +22,10 @@ export default {
       this.$emit('hideDialog')
     }
   }
-
 }
 </script>
 
-<style>
+<style lang="scss">
 .dialog {
   top: 0;
   left: 0;

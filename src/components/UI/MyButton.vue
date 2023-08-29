@@ -1,9 +1,7 @@
 <template>
- 
-  <button @click="click" class="btn">
+  <button @click="click" class="button">
     <slot></slot>
   </button>
-
 </template>
 
 <script>
@@ -13,19 +11,24 @@ export default {
   methods: {
     click() {
       this.$emit('click')
-  
     }
   }
 }
-
 </script>
 
-<style>
-.btn {
-  margin-top: 15px;
+<style lang="scss">
+.button {
   padding: 10px 15px;
-  background: none;
-  color: teal;
-  border: 1px solid teal;
-}  
+  border: 1px solid $border-primary;
+  border-radius: 10px;
+  background-color: $bg-secondary;
+
+  &:hover {
+    background-color: $bg-button-hover;
+  }
+
+  &:active {
+    background-color: $bg-button-active;
+  }
+}
 </style>

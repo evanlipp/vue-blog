@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font: $font-primary;
+  color: $font-color-primary;
+  background-color: $bg-primary;
+  padding: 120px 0 0 0;
+}
+
+.error {
+  color: $font-color-error;
+}
